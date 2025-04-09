@@ -1,6 +1,7 @@
 import shutil
 from gradio_client import Client
 import os
+from PIL import Image
 
 def image_gen(prompt):
     your_repo_path = "/Users/aditya.narayan/Desktop/form-to-ppt/generated_images"
@@ -18,11 +19,13 @@ def image_gen(prompt):
     image_path, seed_used, latency = result
 
     if os.path.exists(image_path):
-        filename = os.path.basename(image_path)
-        destination = os.path.join(your_repo_path, filename)
+        # Convert and save as JPEG
+        with Image.open(image_path) as im:
+            jpeg_filename = os.path.splitext(os.path.basename(image_path))[0] + ".jpeg"
+            destination = os.path.join(your_repo_path, jpeg_filename)
+            im.convert("RGB").save(destination, "JPEG")
 
-        shutil.copy(image_path, destination)
-        print(f"✅ Image copied to: {destination}")
+        print(f"✅ Image converted and saved as: {destination}")
 
         os.remove(image_path)
         print(f"🗑️ Temp file deleted: {image_path}")

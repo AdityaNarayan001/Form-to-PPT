@@ -1,70 +1,37 @@
 import streamlit as st
+from utils.ppt_gen import generate_presentation
 
+st.set_page_config(page_title="Seed Fund Form", layout="centered")
 st.title("Startup India Seed Fund Scheme Application Form")
 
-# Initialize session state variable
+# Initialize session state variables
 if "form_submitted" not in st.session_state:
     st.session_state.form_submitted = False
 
-# Show the form only if not submitted
+if "show_download" not in st.session_state:
+    st.session_state.show_download = False
+
+# Show form if not submitted
 if not st.session_state.form_submitted:
     with st.form("user_form"):
-        explain_problem_you_are_solving = st.text_area(
-            "**Explain the problem you are solving.**", 
-            height=100, 
-            placeholder="Write your problem here..."
-        )
-        target_market = st.text_area(
-            "**Target Market.**", 
-            height=100, 
-            placeholder="Write your target market here..."
-        )
-        your_product_service = st.text_area(
-            "**Overview of your product/service.**", 
-            height=100, 
-            placeholder="Write your overview of your product/service here..."
-        )
-        competetive_landscape = st.text_area(
-            "**Competetive Landscape.**", 
-            height=100, 
-            placeholder="Write who are your competetiors here..."
-        )
-        market_validation = st.text_area(
-            "**Market Validation.**", 
-            height=100, 
-            placeholder="Write your market validation here..."
-        )
-        revenue_model = st.text_area(
-            "**Revenue Model.**", 
-            height=100, 
-            placeholder="Write your revenue model here..."
-        )
-        market_strategy = st.text_area(
-            "**Market Strategy.**", 
-            height=100, 
-            placeholder="Write your market strategy here..."
-        )
-        team = st.text_area(
-            "**Talk about your Team.**", 
-            height=100, 
-            placeholder="Write about your team here..."
-        )
-        financials = st.text_area(
-            "**Talk about your Financials.**", 
-            height=100, 
-            placeholder="Write about your financials here..."
-        )
-        fund_requirement_deployment_plan = st.text_area(
-            "**Talk about your Fund Requirement and Deployment Plan.**", 
-            height=100, 
-            placeholder="Write about your fund requirement and deployment plan here..."
-        )
-
+        ppt_heading = st.text_area("**Project Title.**", height=100, placeholder="Enter Project Title Here...")
+        explain_problem_you_are_solving = st.text_area("**Explain the problem you are solving.**", height=100, placeholder="Enter Problem You Are Solving Here...")
+        target_market = st.text_area("**Target Market.**", height=100, placeholder="Enter Target Market Here...")
+        your_product_service = st.text_area("**Overview of your product/service.**", height=100, placeholder="Enter Product Service Overview Here...")
+        competetive_landscape = st.text_area("**Competetive Landscape.**", height=100, placeholder="Enter Competetive Landscape Here...")
+        market_validation = st.text_area("**Market Validation.**", height=100, placeholder="Enter Market Validation Here...")
+        revenue_model = st.text_area("**Revenue Model.**", height=100, placeholder="Enter Revenue Model Here...")
+        market_strategy = st.text_area("**Market Strategy.**", height=100, placeholder="Enter Market Strategy Here...")
+        team = st.text_area("**Talk about your Team.**", height=100, placeholder="Enter Team Details Here...")
+        financials = st.text_area("**Talk about your Financials.**", height=100, placeholder="Enter Financials Here...")
+        fund_requirement_deployment_plan = st.text_area("**Talk about your Fund Requirement and Deployment Plan.**", height=100, placeholder="Enter Fund Requirement and Deployment Plan Here...")
 
         submitted = st.form_submit_button("Submit", type="primary")
 
         if submitted:
+            # Validate all fields
             if not all([
+                ppt_heading.strip(),
                 explain_problem_you_are_solving.strip(),
                 target_market.strip(),
                 your_product_service.strip(),
@@ -78,7 +45,8 @@ if not st.session_state.form_submitted:
             ]):
                 st.error("Please fill out all required fields before submitting.")
             else:
-                st.session_state.form_submitted = True
+                # Save to session state
+                st.session_state.ppt_heading = ppt_heading
                 st.session_state.explain_problem_you_are_solving = explain_problem_you_are_solving
                 st.session_state.target_market = target_market
                 st.session_state.your_product_service = your_product_service
@@ -89,26 +57,32 @@ if not st.session_state.form_submitted:
                 st.session_state.team = team
                 st.session_state.financials = financials
                 st.session_state.fund_requirement_deployment_plan = fund_requirement_deployment_plan
-                st.success("Form submitted successfully!")
-else:
-    st.info("You have already submitted the form.")
-    st.write("**Explain the problem you are solving:**")
-    st.write(st.session_state.explain_problem_you_are_solving)
-    st.write("**Target Market:**")
-    st.write(st.session_state.target_market)
-    st.write("**Overview of your product/service:**")
-    st.write(st.session_state.your_product_service)
-    st.write("**Competetive Landscape:**")
-    st.write(st.session_state.competetive_landscape)
-    st.write("**Market Validation:**")
-    st.write(st.session_state.market_validation)
-    st.write("**Revenue Model:**")
-    st.write(st.session_state.revenue_model)
-    st.write("**Market Strategy:**")
-    st.write(st.session_state.market_strategy)
-    st.write("**Team:**")
-    st.write(st.session_state.team)
-    st.write("**Financials:**")
-    st.write(st.session_state.financials)
-    st.write("**Fund Requirement and Deployment Plan:**")
-    st.write(st.session_state.fund_requirement_deployment_plan)
+
+                st.session_state.form_submitted = True
+                st.session_state.show_download = True
+                st.rerun()
+
+# After form is submitted...
+elif st.session_state.show_download:
+    st.success("Form submitted successfully! 🎉")
+
+    generate_presentation(st.session_state.ppt_heading)
+    ppt_path = "/Users/aditya.narayan/Desktop/form-to-ppt/output/auto-generated-ppt.pptx" 
+
+    try:
+        with open(ppt_path, "rb") as f:
+            ppt_bytes = f.read()
+
+        # Center the download button
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.download_button(
+                label="📥 Download Your PowerPoint Presentation",
+                data=ppt_bytes,
+                file_name="Seed_Fund_Application.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                use_container_width=True
+            )
+    except FileNotFoundError:
+        st.error("PowerPoint file not found. Please check the path.")
+
