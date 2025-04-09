@@ -2,7 +2,7 @@
 
 This project generates a **professional PowerPoint presentation** based on user input collected from a simple web form. It's powered by AI to refine your content, correct grammar, improve English, and add **relevant images** that visually align with the text on each slide.
 
----
+
 
 ## 🚀 Tech Stack
 
@@ -12,7 +12,7 @@ This project generates a **professional PowerPoint presentation** based on user 
 - **🧩 Frontend UI:** [Streamlit](https://streamlit.io/)
 - **🐍 Backend:** Python 3.12+
 
----
+
 
 ## 🔄 Flow
 
@@ -24,7 +24,7 @@ This project generates a **professional PowerPoint presentation** based on user 
    - Adds visuals that match the content using Janus AI.
 4. You get a clean **download button** to save your .pptx file.
 
----
+
 
 ## 📦 Installation
 
