@@ -1,4 +1,3 @@
-import shutil
 from gradio_client import Client
 import os
 from PIL import Image
