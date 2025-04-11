@@ -3,7 +3,10 @@ from utils.ppt_gen import generate_presentation
 from utils.llm import llm
 
 st.set_page_config(page_title="Seed Fund Form", layout="centered")
+
 st.title("Startup India Seed Fund Scheme Application Form")
+
+st.markdown(":blue-badge[**Proof-of-Concept**] :green-badge[**LLM**] :green-badge[**Image Generation**]")
 
 enable_LLM = st.checkbox("**Enable LLM to re-write your answers for better clarity.**")
 
