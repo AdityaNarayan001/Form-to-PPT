@@ -1,8 +1,11 @@
 import streamlit as st
 from utils.ppt_gen import generate_presentation
+from utils.llm import llm
 
 st.set_page_config(page_title="Seed Fund Form", layout="centered")
 st.title("Startup India Seed Fund Scheme Application Form")
+
+enable_LLM = st.checkbox("**Enable LLM to re-write your answers for better clarity.**")
 
 # Initialize session state variables
 if "form_submitted" not in st.session_state:
@@ -66,7 +69,13 @@ if not st.session_state.form_submitted:
 elif st.session_state.show_download:
     st.success("Form submitted successfully! 🎉")
 
-    generate_presentation(st.session_state.ppt_heading)
+    if enable_LLM:
+        with st.spinner("Generating presentation..."):
+            generate_presentation(st.session_state.ppt_heading, llm(st.session_state.explain_problem_you_are_solving))
+    else:
+        with st.spinner("Generating presentation..."):
+            generate_presentation(st.session_state.ppt_heading, st.session_state.explain_problem_you_are_solving)
+
     ppt_path = "/Users/aditya.narayan/Desktop/form-to-ppt/output/auto-generated-ppt.pptx" 
 
     try:

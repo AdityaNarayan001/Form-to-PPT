@@ -1,5 +1,5 @@
 from ollama import chat
-from system_prompt import system_prompt
+from utils.system_prompt import system_prompt
 
 def llm(prompt):
     response = chat(
