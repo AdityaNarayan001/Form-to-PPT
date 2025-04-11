@@ -105,7 +105,7 @@ def generate_presentation(
 
     # --- Add Images ---
     slide3.shapes.add_picture("/Users/aditya.narayan/Desktop/form-to-ppt/asset/slide1/seedFundScheme.png", Inches(8.5), Inches(0.1), width=Inches(1.2))
-    slide3.shapes.add_picture(image_gen("A market with lot of people."), Inches(7.5), Inches(2), width=Inches(2.2))
+    slide3.shapes.add_picture(image_gen(target_market), Inches(7.5), Inches(2), width=Inches(2.2))
     # Add a yellow line
     h_line = slide3.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.1), Inches(0.2), Inches(7), Inches(0.2))
     h_line.line.color.rgb = RGBColor(250, 191, 62)
@@ -192,7 +192,7 @@ def generate_presentation(
 
     # --- Add Images ---
     slide5.shapes.add_picture("/Users/aditya.narayan/Desktop/form-to-ppt/asset/slide1/seedFundScheme.png", Inches(8.5), Inches(0.1), width=Inches(1.2))
-    slide5.shapes.add_picture(image_gen("Two wrestlers fighting."), Inches(7.5), Inches(2), width=Inches(2.2))
+    slide5.shapes.add_picture(image_gen(competetive_landscape), Inches(7.5), Inches(2), width=Inches(2.2))
     # Add a yellow line
     h_line = slide5.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.1), Inches(0.2), Inches(7), Inches(0.2))
     h_line.line.color.rgb = RGBColor(250, 191, 62)
@@ -365,7 +365,7 @@ def generate_presentation(
 
     # --- Add Images ---
     slide9.shapes.add_picture("/Users/aditya.narayan/Desktop/form-to-ppt/asset/slide1/seedFundScheme.png", Inches(8.5), Inches(0.1), width=Inches(1.2))
-    slide9.shapes.add_picture(image_gen("Business Team standing together."), Inches(7.5), Inches(2), width=Inches(2.2))
+    slide9.shapes.add_picture(image_gen(team), Inches(7.5), Inches(2), width=Inches(2.2))
     # Add a yellow line
     h_line = slide9.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.1), Inches(0.2), Inches(7), Inches(0.2))
     h_line.line.color.rgb = RGBColor(250, 191, 62)
