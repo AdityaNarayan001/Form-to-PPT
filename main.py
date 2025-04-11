@@ -71,10 +71,32 @@ elif st.session_state.show_download:
 
     if enable_LLM:
         with st.spinner("Generating presentation..."):
-            generate_presentation(st.session_state.ppt_heading, llm(st.session_state.explain_problem_you_are_solving))
+            generate_presentation(
+                st.session_state.ppt_heading, 
+                llm(st.session_state.explain_problem_you_are_solving), 
+                llm(st.session_state.target_market),
+                llm(st.session_state.your_product_service),
+                llm(st.session_state.competetive_landscape),
+                llm(st.session_state.market_validation),
+                llm(st.session_state.revenue_model),
+                llm(st.session_state.market_strategy),
+                llm(st.session_state.team),
+                llm(st.session_state.financials),
+                llm(st.session_state.fund_requirement_deployment_plan))
     else:
         with st.spinner("Generating presentation..."):
-            generate_presentation(st.session_state.ppt_heading, st.session_state.explain_problem_you_are_solving)
+            generate_presentation(
+                st.session_state.ppt_heading, 
+                st.session_state.explain_problem_you_are_solving, 
+                st.session_state.target_market,
+                st.session_state.your_product_service,
+                st.session_state.competetive_landscape,
+                st.session_state.market_validation,
+                st.session_state.revenue_model,
+                st.session_state.market_strategy,
+                st.session_state.team,
+                st.session_state.financials,
+                st.session_state.fund_requirement_deployment_plan)
 
     ppt_path = "/Users/aditya.narayan/Desktop/form-to-ppt/output/auto-generated-ppt.pptx" 
 
